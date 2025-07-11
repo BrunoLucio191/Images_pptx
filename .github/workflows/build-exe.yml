@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Necessário para o pacote python-pptx
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -26,18 +26,16 @@ jobs:
     - name: Build executable
       run: |
         pyinstaller --onefile --windowed --name "GeradorPowerPoint" gerador_ppt.py
-        # --windowed evita o console aparecer
-        # --name define o nome do executável
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: GeradorPowerPoint
         path: dist/GeradorPowerPoint.exe
 
-    # Opcional: criar um release automaticamente quando tag é criada
+    # Opcional (usando a versão mais recente da action de release)
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: dist/GeradorPowerPoint.exe
