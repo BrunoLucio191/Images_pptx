@@ -25,17 +25,10 @@ jobs:
 
     - name: Build executable
       run: |
-        pyinstaller --onefile --windowed --name "GeradorPowerPoint" gerador_ppt.py
+        pyinstaller --onefile --windowed --name "GeradorPowerPoint" main.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: GeradorPowerPoint
         path: dist/GeradorPowerPoint.exe
-
-    # Opcional (usando a versão mais recente da action de release)
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v2
-      with:
-        files: dist/GeradorPowerPoint.exe
